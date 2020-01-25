@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
   try {
     $connection = new PDO($dsn, $username, $password, $options);
 
-    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, TIME_IN FROM IDENTITY JOIN PRACTICE ON IDENTITY.ID=PRACTICE.ID";
+    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, TIME_IN FROM IDENTITY JOIN PRACTICE ON IDENTITY.ID=PRACTICE.ID WHERE TIME_OUT IS NULL";
     $statement = $connection->prepare($sql);
     $statement->execute();
     $result = $statement->fetchAll();
