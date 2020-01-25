@@ -40,6 +40,9 @@
       <li>
         <a href="get_all_times.php"> List Times And IDs For All Students</a>
       </li>
+	  <li>
+        <a href="find_everyone_still_checked_in.php"> Find Who's Still Checked In</a>
+      </li>
       <li>
         <a href="index.php"> Logout</a>
       </li>
