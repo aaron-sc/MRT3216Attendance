@@ -4,8 +4,8 @@
  *
  */
 $host       = "localhost";
-$username   = "phpmyadmin";
-$password   = "_S{6tSO2]s";
+$username   = "phpmyadminuser";
+$password   = "RobotsRock";
 $dbname     = "MRT_3216_Attendance";
 $dsn        = "mysql:host=$host;dbname=$dbname";
 $options    = array(
