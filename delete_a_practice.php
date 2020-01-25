@@ -28,7 +28,7 @@ if (isset($_GET["PRACTICE_ID"])) {
 try {
   $connection = new PDO($dsn, $username, $password, $options);
 
-  $sql = "SELECT PRACTICE_ID, IDENTITY.ID, IDENTITY.NAME, TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT) AS TOTAL_MINUTES, TIME_IN, TIME_OUT FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID=IDENTITY.ID ORDER BY ID";
+  $sql = "SELECT PRACTICE_ID, IDENTITY.ID, IDENTITY.FIRST_NAME, IDENTITY.LAST_NAME, TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT) AS TOTAL_MINUTES, TIME_IN, TIME_OUT FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID=IDENTITY.ID ORDER BY ID";
 
   $statement = $connection->prepare($sql);
   $statement->execute();
@@ -51,7 +51,8 @@ try {
   <thead>
     <tr>
   <th>ID</th>
-  <th>Name</th>
+  <th>First Name</th>
+  <th>Last Name</th>
   <th>Time In</th>
   <th>Time Out</th>
   <th>Total Time</th>
@@ -61,7 +62,8 @@ try {
   <?php foreach ($result as $row) : ?>
     <tr>
 <td><?php echo escape($row["ID"]); ?></td>
-<td><?php echo escape($row["NAME"]); ?></td>
+<td><?php echo escape($row["FIRST_NAME"]); ?></td>
+<td><?php echo escape($row["LAST_NAME"]); ?></td>
 <td><?php echo escape($row["TIME_IN"]); ?></td>
 <td><?php echo escape($row["TIME_OUT"]); ?></td>
 <td><?php echo escape($row["TOTAL_MINUTES"]); ?></td>

@@ -28,7 +28,7 @@ if (isset($_GET["ID"])) {
 try {
   $connection = new PDO($dsn, $username, $password, $options);
 
-  $sql = "SELECT ID, NAME FROM IDENTITY";
+  $sql = "SELECT ID, FIRST_NAME, LAST_NAME FROM IDENTITY";
 
   $statement = $connection->prepare($sql);
   $statement->execute();
@@ -51,14 +51,16 @@ try {
   <thead>
     <tr>
   <th>ID</th>
-  <th>Name</th>
+  <th>First Name</th>
+  <th>Last Name</th>
     </tr>
   </thead>
   <tbody>
   <?php foreach ($result as $row) : ?>
     <tr>
 <td><?php echo escape($row["ID"]); ?></td>
-<td><?php echo escape($row["NAME"]); ?></td>
+<td><?php echo escape($row["FIRST_NAME"]); ?></td>
+<td><?php echo escape($row["LAST_NAME"]); ?></td>
       <td><a href="delete_a_student.php?ID=<?php echo escape($row["ID"]); ?>">Delete</a></td>
     </tr>
   <?php endforeach; ?>
