@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
   try {
     $connection = new PDO($dsn, $username, $password, $options);
 
-    $sql = "SELECT IDENTITY.ID, NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range";
+    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range";
     $hour_range = $_POST['hour_range']*60;
     $statement = $connection->prepare($sql);
     $statement->bindParam(':hour_range', $hour_range, PDO::PARAM_STR);
@@ -37,7 +37,8 @@ if (isset($_POST['submit'])) {
       <thead>
 <tr>
   <th>ID</th>
-  <th>Name</th>
+  <th>First Name</th>
+  <th>Last Name</th>
   <th>Total Hours</th>
   <th>Total Minutes</th>
 </tr>
@@ -46,7 +47,8 @@ if (isset($_POST['submit'])) {
   <?php foreach ($result as $row) { ?>
       <tr>
 <td><?php echo escape($row["ID"]); ?></td>
-<td><?php echo escape($row["NAME"]); ?></td>
+<td><?php echo escape($row["FIRST_NAME"]); ?></td>
+<td><?php echo escape($row["LAST_NAME"]); ?></td>
 <td><?php echo escape($row["total_min"]) / 60;  ?></td>
 <td><?php echo escape($row["total_min"]);  ?></td>
 
