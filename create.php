@@ -19,7 +19,8 @@ if (isset($_POST['submit'])) {
 
     $new_food = array(
       "ID" => $_POST["ID"],
-      "NAME"  => $_POST['NAME'],
+      "FIRST_NAME"  => $_POST['FIRST_NAME'],
+	  "LAST_NAME"  => $_POST['LAST_NAME'],
     );
 
     $sql = sprintf(
@@ -38,7 +39,7 @@ implode(", ", array_keys($new_food)),
 }
 
 if (isset($_POST['submit']) && $statement) {
- echo escape($_POST["ID"]).' successfully added.';
+ echo escape($_POST["FIRST_NAME"]).' successfully added.';
 } ?>
 
 
@@ -48,8 +49,10 @@ if (isset($_POST['submit']) && $statement) {
 <form method="post">
   <label for="ID">ID: </label>
   <input type="text" name="ID" id="ID">
-  <label for="NAME">Name: </label>
-  <input type="text" name="NAME" id="NAME">
+  <label for="FIRST_NAME">First Name: </label>
+  <input type="text" name="FIRST_NAME" id="FIRST_NAME">
+  <label for="LAST_NAME">Last Name: </label>
+  <input type="text" name="LAST_NAME" id="LAST_NAME">
   <input type="submit" name="submit" value="Submit">
 </form>
 

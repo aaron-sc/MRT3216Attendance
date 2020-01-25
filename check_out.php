@@ -30,8 +30,9 @@ if (isset($_POST['submit'])) {
 
 }
 
-if (isset($_POST['submit'])) {
- echo 'Successfully checked out';
+
+if (isset($_POST['submit']) && $statement) {
+ echo escape($_POST["ID"]).' successfully checked out.';
 } ?>
 
 

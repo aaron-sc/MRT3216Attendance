@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
   <th>ID</th>
   <th>First Name</th>
   <th>Last Name</th>
-  <th>TIME_IN</th>
+  <th>Time In</th>
 </tr>
       </thead>
       <tbody>
