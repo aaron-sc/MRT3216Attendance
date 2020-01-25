@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
     $sql = "UPDATE IDENTITY
             SET ID = :ID,
               FIRST_NAME = :FIRST_NAME,
-			  LAST_NAME = :LAST_NAME
+			  LAST_NAME = :LAST_NAME,
             WHERE ID = :ID";
   $statement = $connection->prepare($sql);
   $statement->execute($change);
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
 
 if (isset($_GET['ID'])) {
   try {
-    $connection = new PDO($dsn, $userNAME, $password, $options);
+    $connection = new PDO($dsn, $username, $password, $options);
     $ID = $_GET['ID'];
     $sql = "SELECT * FROM IDENTITY WHERE ID = :ID";
     $statement = $connection->prepare($sql);
@@ -38,6 +38,7 @@ if (isset($_GET['ID'])) {
 
     $change = $statement->fetch(PDO::FETCH_ASSOC);
   } catch(PDOException $error) {
+	  echo "here";
       echo $sql . "<br>" . $error->getMessage();
   }
 } else {
@@ -49,7 +50,7 @@ if (isset($_GET['ID'])) {
 <?php require "templates/header.php"; ?>
 
 <?php if (isset($_POST['submit']) && $statement) : ?>
-  <?php echo escape($_POST['NAME']); ?> successfully updated.
+  <?php echo escape($_POST['FIRST_NAME']); ?> successfully updated.
 <?php endif; ?>
 
 <h2>Edit A Student's Details</h2>
