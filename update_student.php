@@ -38,7 +38,7 @@ try {
         <td><?php echo escape($row["ID"]); ?></td>
         <td><?php echo escape($row["FIRST_NAME"]); ?></td>
 		<td><?php echo escape($row["LAST_NAME"]); ?></td>
-        <td><a href="update_a_student.php?id=<?php echo escape($row["ID"]); ?>">Edit</a></td>
+        <td><a href="update_a_student.php?ID=<?php echo escape($row["ID"]); ?>">Edit</a></td>
       </tr>
     <?php endforeach; ?>
     </tbody>

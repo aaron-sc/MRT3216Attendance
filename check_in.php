@@ -37,7 +37,7 @@ implode(", ", array_keys($data)),
 }
 
 if (isset($_POST['submit']) && $statement) {
- echo escape($_POST["ID"]).' successfully checked in.';
+ echo escape($_POST["ID"]).' successfully checked in';
 } ?>
 
 

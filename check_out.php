@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
 
 
 if (isset($_POST['submit']) && $statement) {
- echo escape($_POST["ID"]).' successfully checked out.';
+ echo escape($_POST["ID"]).' successfully checked out';
 } ?>
 
 
