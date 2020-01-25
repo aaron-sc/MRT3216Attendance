@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
   try {
     $connection = new PDO($dsn, $username, $password, $options);
 
-    $sql = 'SELECT IDENTITY.ID, NAME, TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT) AS TOTAL_MINUTES, CAST(PRACTICE.TIME_IN AS DATE) AS DAY_IN FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID=IDENTITY.ID HAVING DAY_IN = :id_day
+    $sql = 'SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT) AS TOTAL_MINUTES, CAST(PRACTICE.TIME_IN AS DATE) AS DAY_IN FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID=IDENTITY.ID HAVING DAY_IN = :id_day
 ';
     $id_day = $_POST['id_day'];
     $statement = $connection->prepare($sql);
@@ -38,7 +38,8 @@ if (isset($_POST['submit'])) {
       <thead>
 <tr>
   <th>ID</th>
-  <th>Name</th>
+  <th>First Name</th>
+  <th>Last Name</th>
   <th>Total Minutes</th>
   <th>Total Hours</th>
   <th>Date</th>
@@ -48,7 +49,8 @@ if (isset($_POST['submit'])) {
   <?php foreach ($result as $row) { ?>
       <tr>
 <td><?php echo escape($row["ID"]); ?></td>
-<td><?php echo escape($row["NAME"]); ?></td>
+<td><?php echo escape($row["FIRST_NAME"]); ?></td>
+<td><?php echo escape($row["LAST_NAME"]); ?></td>
 <td><?php echo escape($row["TOTAL_MINUTES"]); ?></td>
 <td><?php echo escape($row["TOTAL_MINUTES"]/60); ?></td>
 <td><?php echo escape($row["DAY_IN"]); ?></td>

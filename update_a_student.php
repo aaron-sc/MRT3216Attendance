@@ -8,15 +8,17 @@ require "config.php";
 require "common.php";
 if (isset($_POST['submit'])) {
   try {
-    $connection = new PDO($dsn, $userNAME, $password, $options);
+    $connection = new PDO($dsn, $username, $password, $options);
     $change =[
       "ID"        => $_POST['ID'],
-      "NAME" => $_POST['NAME']
+      "FIRST_NAME" => $_POST['FIRST_NAME'],
+	  "LAST_NAME" => $_POST['LAST_NAME']
     ];
     
     $sql = "UPDATE IDENTITY
             SET ID = :ID,
-              NAME = :NAME
+              FIRST_NAME = :FIRST_NAME,
+			  LAST_NAME = :LAST_NAME
             WHERE ID = :ID";
   $statement = $connection->prepare($sql);
   $statement->execute($change);

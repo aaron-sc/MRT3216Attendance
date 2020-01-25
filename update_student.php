@@ -28,14 +28,16 @@ try {
   <thead>
     <tr>
       <th>ID</th>
-      <th>Name</th>
+      <th>First Name</th>
+	  <th>Last Name</th>
     </tr>
   </thead>
     <tbody>
     <?php foreach ($result as $row) : ?>
       <tr>
         <td><?php echo escape($row["ID"]); ?></td>
-        <td><?php echo escape($row["NAME"]); ?></td>
+        <td><?php echo escape($row["FIRST_NAME"]); ?></td>
+		<td><?php echo escape($row["LAST_NAME"]); ?></td>
         <td><a href="update_a_student.php?id=<?php echo escape($row["ID"]); ?>">Edit</a></td>
       </tr>
     <?php endforeach; ?>
