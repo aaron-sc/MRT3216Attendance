@@ -46,7 +46,7 @@ if (isset($_POST['submit']) && $statement) {
 
 <form method="post">
   <label for="ID">ID: </label>
-  <input type="text" name="ID" id="ID">
+  <input type="text" name="ID" id="ID" autofocus>
   <input type="submit" name="submit" value="Submit">
 </form>
 
