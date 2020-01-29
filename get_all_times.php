@@ -85,7 +85,7 @@ if (isset($_POST['submit'])) {
   </select>
   <br>
   <!-- ORDER ASC/DESC -->
-  <label for="ASC-DESC">ASC/DESC:</label>
+  <label for="ASC-DESC">A-Z or Z-A:</label>
   <select id="ASC-DESC" name="ASC-DESC">
 	<option value="ASC">A-Z</option>
 	<option value="DESC">Z-A</option>
