@@ -36,6 +36,7 @@ if (isset($_GET["TABLE"])) {
 
     $statement = $connection->prepare($sql);
     $statement->execute();
+	$result2 = $statement->fetchAll();
   } catch(PDOException $error) {
     echo $sql . "<br>" . $error->getMessage();
   }
