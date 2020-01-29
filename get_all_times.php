@@ -39,6 +39,7 @@ if (isset($_POST['submit'])) {
   if ($result && $statement->rowCount() > 0) { ?>
     <h2>Results</h2>
 	<?php if ($success) echo $success; ?>
+	<br>
     <table border=1 frame=void rules=all>
       <thead>
 <tr>
