@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
 <td><?php echo escape($row["ID"]); ?></td>
 <td><?php echo escape($row["FIRST_NAME"]); ?></td>
 <td><?php echo escape($row["LAST_NAME"]); ?></td>
-<td><?php echo escape($row["total_min"]) / 60;  ?></td>
+<td><?php echo ceil(escape($row["total_min"]) / 60);  ?></td>
 <td><?php echo escape($row["total_min"]);  ?></td>
 
 
