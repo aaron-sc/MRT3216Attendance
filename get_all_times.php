@@ -7,13 +7,15 @@
   */
 require "config.php";
 require "common.php";
+require "utility.php"
 
 
 if (isset($_POST['submit'])) {
   try {
     $connection = new PDO($dsn, $username, $password, $options);
 
-    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range";
+    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range ORDER BY " . $_GET['TABLE'] . " ASC";
+	
     $hour_range = $_POST['hour_range']*60;
     $statement = $connection->prepare($sql);
     $statement->bindParam(':hour_range', $hour_range, PDO::PARAM_STR);
@@ -25,24 +27,24 @@ if (isset($_POST['submit'])) {
     echo $sql . "<br>" . $error->getMessage();
   }
 }
-// SORT BY [TABLE]
-if (isset($_GET["TABLE"])) {
-  try {
-    $connection = new PDO($dsn, $username, $password, $options);
 
-    $TABLE = $_GET["TABLE"];
+try {
+  $connection = new PDO($dsn, $username, $password, $options);
 
-    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID ORDER BY " . $TABLE . " ASC";
+  $sql = "SHOW COLUMNS FROM MRT_3216_Attendance.IDENTITY;";
 
-    $statement = $connection->prepare($sql);
-    $statement->execute();
-	$result2 = $statement->fetchAll();
-  } catch(PDOException $error) {
-    echo $sql . "<br>" . $error->getMessage();
-  }
+  $statement = $connection->prepare($sql);
+  $statement->execute();
+
+  $result2 = $statement->fetchAll();
+} catch(PDOException $error) {
+  echo $sql . "<br>" . $error->getMessage();
 }
+
 ?>
 <?php require "templates/header.php"; ?>
+
+
 <!-- FOR SUBMIT -->
 <?php
 if (isset($_POST['submit'])) {
@@ -52,18 +54,11 @@ if (isset($_POST['submit'])) {
     <table border=1 frame=void rules=all>
       <thead>
 <tr>
-<!--
   <th>ID</th>
   <th>First Name</th>
   <th>Last Name</th>
   <th>Total Hours</th>
   <th>Total Minutes</th>
-  -->
-  <th><a href="get_all_times.php?TABLE=ID">ID</a></th>
-  <th><a href="get_all_times.php?TABLE=FIRST_NAME">First Name</a></th>
-  <th><a href="get_all_times.php?TABLE=LAST_NAME">Last Name</a></th>
-  <th>Total Hours</th>
-  <th><a href="get_all_times.php?TABLE=total_min">Total Minutes</a></th>
 </tr>
       </thead>
       <tbody>
@@ -82,50 +77,6 @@ if (isset($_POST['submit'])) {
   </table>
   <?php }
 } ?>
-
-<!-- FOR TABLE -->
-
-<?php
-if (isset($_POST['TABLE'])) {
-  if ($result2 && $statement->rowCount() > 0) { ?>
-    <h2>Results</h2>
-
-    <table border=1 frame=void rules=all>
-      <thead>
-<tr>
-<!--
-  <th>ID</th>
-  <th>First Name</th>
-  <th>Last Name</th>
-  <th>Total Hours</th>
-  <th>Total Minutes</th>
-  -->
-  <th><a href="get_all_times.php?TABLE=ID">ID</a></th>
-  <th><a href="get_all_times.php?TABLE=FIRST_NAME">First Name</a></th>
-  <th><a href="get_all_times.php?TABLE=LAST_NAME">Last Name</a></th>
-  <th>Total Hours</th>
-  <th><a href="get_all_times.php?TABLE=total_min">Total Minutes</a></th>
-</tr>
-      </thead>
-      <tbody>
-  <?php foreach ($result as $row) { ?>
-      <tr>
-<td><?php echo escape($row["ID"]); ?></td>
-<td><?php echo escape($row["FIRST_NAME"]); ?></td>
-<td><?php echo escape($row["LAST_NAME"]); ?></td>
-<td><?php echo escape($row["total_min"]) / 60;  ?></td>
-<td><?php echo escape($row["total_min"]);  ?></td>
-
-
-      </tr>
-    <?php } ?>
-      </tbody>
-  </table>
-  <?php }
-} ?>
-
-
-
 
 <h2>Get all times</h2>
 
@@ -135,6 +86,10 @@ if (isset($_POST['TABLE'])) {
   <p>Hours Above/Equal To: <span id="time_slider"></span></p>
   <input type="range" min="0" max="200" value="0" name="hour_range" id="hour_range">
   <br>
+<label for="Field">Order By: </label>
+  <select name="Field" id="Field">
+    	<?php createDDL($result2, -1, "Field", "Field")?>
+  </select>
   <input type="submit" name="submit" value="View Results">
 </form>
 <button onclick="exportTableToCSV('data.csv')">Export Data Table To CSV File</button>
