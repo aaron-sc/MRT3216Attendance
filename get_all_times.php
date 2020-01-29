@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
     echo $sql . "<br>" . $error->getMessage();
   }
 }
-
+// SORT BY [TABLE]
 // if (isset($_POST['TABLE'])) {
 //   try {
 //     $connection = new PDO($dsn, $username, $password, $options);
