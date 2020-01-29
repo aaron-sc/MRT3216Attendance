@@ -12,9 +12,10 @@ require "common.php";
 if (isset($_POST['submit'])) {
   try {
 	$TABLE = $_POST['TABLE'];
+	$ASCORDESC = $_POST['ASC-DESC'];
     $connection = new PDO($dsn, $username, $password, $options);
 
-    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range ORDER BY " . $TABLE . " ASC";
+    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range ORDER BY " . $TABLE . " " . $ASCORDESC;
 	
     $hour_range = $_POST['hour_range']*60;
     $statement = $connection->prepare($sql);
@@ -73,12 +74,21 @@ if (isset($_POST['submit'])) {
   <label for="hour_range">Hours Above/Equal To: <span id="time_slider"></span></label>
   <input type="range" min="0" max="200" value="0" name="hour_range" id="hour_range">
   <br>
+
+  <!-- ORDER BY TABLE -->
   <label for="TABLE">Order By:</label>
   <select id="TABLE" name="TABLE">
 	<option value="ID">ID</option>
 	<option value="FIRST_NAME">First Name</option>
 	<option value="LAST_NAME">Last Name</option>
 	<option value="total_min">Total Minutes</option>
+  </select>
+  
+  <!-- ORDER ASC/DESC -->
+  <label for="ASC-DESC">ASC/DESC:</label>
+  <select id="ASC-DESC" name="ASC-DESC">
+	<option value="ASC">A-Z</option>
+	<option value="DESC">Z-A</option>
   </select>
   <input type="submit" name="submit" value="View Results">
 </form>
