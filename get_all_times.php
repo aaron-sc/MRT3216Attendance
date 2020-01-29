@@ -25,6 +25,24 @@ if (isset($_POST['submit'])) {
     echo $sql . "<br>" . $error->getMessage();
   }
 }
+
+if (isset($_GET["ID"])) {
+  try {
+    $connection = new PDO($dsn, $username, $password, $options);
+
+    $ID = $_GET["ID"];
+
+    $sql = "DELETE FROM IDENTITY WHERE ID = :ID";
+
+    $statement = $connection->prepare($sql);
+    $statement->bindValue(':ID', $ID);
+    $statement->execute();
+
+    $success = "Student successfully deleted";
+  } catch(PDOException $error) {
+    echo $sql . "<br>" . $error->getMessage();
+  }
+}
 ?>
 <?php require "templates/header.php"; ?>
 
@@ -36,11 +54,11 @@ if (isset($_POST['submit'])) {
     <table border=1 frame=void rules=all>
       <thead>
 <tr>
-  <th>ID</th>
-  <th>First Name</th>
-  <th>Last Name</th>
+  <th><a href="get_all_times.php?TABLE=ID ?>">ID</a></th>
+  <th><a href="get_all_times.php?TABLE=FIRST_NAME ?>">First Name</a></th>
+  <th><a href="get_all_times.php?TABLE=LAST_NAME ?>">Last Name</a></th>
   <th>Total Hours</th>
-  <th>Total Minutes</th>
+  <th><a href="get_all_times.php?TABLE=total_min ?>">ID</a>Total Minutes</a></th>
 </tr>
       </thead>
       <tbody>
