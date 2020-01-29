@@ -83,13 +83,14 @@ if (isset($_POST['submit'])) {
 	<option value="LAST_NAME">Last Name</option>
 	<option value="total_min">Total Minutes</option>
   </select>
-  
+  <br>
   <!-- ORDER ASC/DESC -->
   <label for="ASC-DESC">ASC/DESC:</label>
   <select id="ASC-DESC" name="ASC-DESC">
 	<option value="ASC">A-Z</option>
 	<option value="DESC">Z-A</option>
   </select>
+  <br>
   <input type="submit" name="submit" value="View Results">
 </form>
 <button onclick="exportTableToCSV('data.csv')">Export Data Table To CSV File</button>
