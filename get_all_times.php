@@ -26,16 +26,18 @@ if (isset($_POST['submit'])) {
   }
 }
 // SORT BY [TABLE]
-if (isset($_POST['TABLE'])) {
+if (isset($_GET["TABLE"])) {
   try {
     $connection = new PDO($dsn, $username, $password, $options);
-    
-    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID ORDER BY " . $_GET['TABLE'] . "ASC";
-  $statement = $connection->prepare($sql);
-  $statement->execute();
-  $result2 = $statement->fetchAll();
+
+    $TABLE = $_GET["TABLE"];
+
+    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID ORDER BY " . $TABLE . "ASC";
+
+    $statement = $connection->prepare($sql);
+    $statement->execute();
   } catch(PDOException $error) {
-      echo $sql . "<br>" . $error->getMessage();
+    echo $sql . "<br>" . $error->getMessage();
   }
 }
 ?>
