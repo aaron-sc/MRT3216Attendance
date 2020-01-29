@@ -26,7 +26,7 @@
         <a href="id_here_on_day.php"> Find Everyone Here On A Specific Day </a>
       </li>
       <li>
-        <a href="get_total_time.php"> Total Time For A Student </a>
+        <a href="get_total_time_id.php"> Total Time For A Student </a>
       </li>
       <li>
         <a href="update_student.php"> Edit Student Details </a>
