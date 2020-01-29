@@ -9,26 +9,27 @@ require "config.php";
 require "common.php";
 
 
+if (isset($_POST['submit'])) {
+  try {
+    $connection = new PDO($dsn, $username, $password, $options);
 
-try {
-	$connection = new PDO($dsn, $username, $password, $options);
+    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, TIME_IN FROM IDENTITY JOIN PRACTICE ON IDENTITY.ID=PRACTICE.ID WHERE TIME_OUT IS NULL";
+    $statement = $connection->prepare($sql);
+    $statement->execute();
+    $result = $statement->fetchAll();
 
-	$sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, TIME_IN FROM IDENTITY JOIN PRACTICE ON IDENTITY.ID=PRACTICE.ID WHERE TIME_OUT IS NULL";
-	$statement = $connection->prepare($sql);
-	$statement->execute();
-	$result = $statement->fetchAll();
-
-	// $result = $statement->fetchAll();
-	} catch(PDOException $error) {
-	echo $sql . "<br>" . $error->getMessage();
+    // $result = $statement->fetchAll();
+  } catch(PDOException $error) {
+    echo $sql . "<br>" . $error->getMessage();
+  }
 }
-
 ?>
 <?php require "templates/header.php"; ?>
 
 <?php
+if (isset($_POST['submit'])) {
   if ($result && $statement->rowCount() > 0) { ?>
-    <h2>Everyone Still Checked In</h2>
+    <h2>Results</h2>
 
     <table border=1 frame=void rules=all>
       <thead>
@@ -54,8 +55,13 @@ try {
       </tbody>
   </table>
   <?php }
-?>
+} ?>
 
+<h2>Find Who Is Still Checked In</h2>
+
+<form method="post">
+  <input type="submit" name="submit" value="View Results">
+</form>
 
 <a href="options.php">Back to home</a>
 
