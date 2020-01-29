@@ -94,7 +94,7 @@ if (isset($_POST['submit'])) {
   <input type="submit" name="submit" value="View Results">
 </form>
 <button onclick="exportTableToCSV('data.csv')">Export Data Table To CSV File</button>
-
+<br>
 <a href="options.php">Back to home</a>
 
 
