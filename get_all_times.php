@@ -12,9 +12,10 @@ require "utility.php"
 
 if (isset($_POST['submit'])) {
   try {
+	$TABLE = $_POST['TABLE'];
     $connection = new PDO($dsn, $username, $password, $options);
 
-    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range ORDER BY " . $_GET['TABLE'] . " ASC";
+    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range ORDER BY " . $TABLE . " ASC";
 	
     $hour_range = $_POST['hour_range']*60;
     $statement = $connection->prepare($sql);
@@ -26,19 +27,6 @@ if (isset($_POST['submit'])) {
   } catch(PDOException $error) {
     echo $sql . "<br>" . $error->getMessage();
   }
-}
-
-try {
-  $connection = new PDO($dsn, $username, $password, $options);
-
-  $sql = "SHOW COLUMNS FROM MRT_3216_Attendance.IDENTITY;";
-
-  $statement = $connection->prepare($sql);
-  $statement->execute();
-
-  $result2 = $statement->fetchAll();
-} catch(PDOException $error) {
-  echo $sql . "<br>" . $error->getMessage();
 }
 
 ?>
@@ -83,12 +71,15 @@ if (isset($_POST['submit'])) {
 <form method="post">
   <!--<label for="id">ID: </label>-->
   <!--<input type="text" name="id" id="id">-->
-  <p>Hours Above/Equal To: <span id="time_slider"></span></p>
+  <label for="hour_range">Hours Above/Equal To: <span id="time_slider"></span></label>
   <input type="range" min="0" max="200" value="0" name="hour_range" id="hour_range">
   <br>
-<label for="Field">Order By: </label>
-  <select name="Field" id="Field">
-    	<?php createDDL($result2, -1, "Field", "Field")?>
+  <label for="TABLE">Order By:</label>
+  <select id="TABLE" name="TABLE">
+	<option value="ID">ID</option>
+	<option value="FIRST_NAME">First Name</option>
+	<option value="LAST_NAME">Last Name</option>
+	<option value="total_min">Total Minutes</option>
   </select>
   <input type="submit" name="submit" value="View Results">
 </form>
