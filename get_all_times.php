@@ -30,18 +30,19 @@ if (isset($_POST['TABLE'])) {
   try {
     $connection = new PDO($dsn, $username, $password, $options);
     
-    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range ORDER BY " . $_GET['TABLE'] . "ASC";
+    $sql = "SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID ORDER BY " . $_GET['TABLE'] . "ASC";
   $statement = $connection->prepare($sql);
-  $statement->execute($change);
+  $statement->execute();
+  $result2 = $statement->fetchAll();
   } catch(PDOException $error) {
       echo $sql . "<br>" . $error->getMessage();
   }
 }
 ?>
 <?php require "templates/header.php"; ?>
-
+<!-- FOR SUBMIT -->
 <?php
-if (isset($_POST['submit']) or isset($_POST['TABLE'])) {
+if (isset($_POST['submit'])) {
   if ($result && $statement->rowCount() > 0) { ?>
     <h2>Results</h2>
 
@@ -78,6 +79,50 @@ if (isset($_POST['submit']) or isset($_POST['TABLE'])) {
   </table>
   <?php }
 } ?>
+
+<!-- FOR TABLE -->
+
+<?php
+if (isset($_POST['TABLE'])) {
+  if ($result2 && $statement->rowCount() > 0) { ?>
+    <h2>Results</h2>
+
+    <table border=1 frame=void rules=all>
+      <thead>
+<tr>
+<!--
+  <th>ID</th>
+  <th>First Name</th>
+  <th>Last Name</th>
+  <th>Total Hours</th>
+  <th>Total Minutes</th>
+  -->
+  <th><a href="get_all_times.php?TABLE=ID">ID</a></th>
+  <th><a href="get_all_times.php?TABLE=FIRST_NAME">First Name</a></th>
+  <th><a href="get_all_times.php?TABLE=LAST_NAME">Last Name</a></th>
+  <th>Total Hours</th>
+  <th><a href="get_all_times.php?TABLE=total_min">Total Minutes</a></th>
+</tr>
+      </thead>
+      <tbody>
+  <?php foreach ($result as $row) { ?>
+      <tr>
+<td><?php echo escape($row["ID"]); ?></td>
+<td><?php echo escape($row["FIRST_NAME"]); ?></td>
+<td><?php echo escape($row["LAST_NAME"]); ?></td>
+<td><?php echo escape($row["total_min"]) / 60;  ?></td>
+<td><?php echo escape($row["total_min"]);  ?></td>
+
+
+      </tr>
+    <?php } ?>
+      </tbody>
+  </table>
+  <?php }
+} ?>
+
+
+
 
 <h2>Get all times</h2>
 
