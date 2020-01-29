@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     $statement->bindParam(':hour_range', $hour_range, PDO::PARAM_STR);
     $statement->execute();
     $result = $statement->fetchAll();
-	$success = "Sorting by " . $TABLE . " " . $ASCORDESC;
+	$success = "Sorting by " . $TABLE . " " . $ASCORDESC . " order";
     // $result = $statement->fetchAll();
   } catch(PDOException $error) {
     echo $sql . "<br>" . $error->getMessage();
