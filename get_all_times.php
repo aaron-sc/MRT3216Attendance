@@ -7,7 +7,6 @@
   */
 require "config.php";
 require "common.php";
-require "utility.php"
 
 
 if (isset($_POST['submit'])) {
