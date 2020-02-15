@@ -54,5 +54,6 @@ if (isset($_POST['submit'])) {
 </form>
 <p>For Students</p>
 <a href="get_total_time_non_admin.php">Get Total Time</a>
+<br>
 <a href="check_out.php">Check Out</a>
 <?php require "templates/footer.php"; ?>
