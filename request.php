@@ -12,7 +12,7 @@ try {
 
 	$connection = new PDO($dsn, $username, $password, $options);
 
-	$sql = strval($_GET["sql"])
+	$sql = str_replace("~", " ", strval($_GET["sql"]));
 
 
 
