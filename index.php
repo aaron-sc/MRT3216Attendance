@@ -24,7 +24,6 @@ if (isset($_POST['submit'])) {
     $statement->bindParam(':name', $name, PDO::PARAM_STR);
     $statement->execute();
     
-    echo $password;
     $result = $statement->fetchAll();
     foreach ($result as $row)
       if($password == escape($row["PASSWORD"]) and !empty($password) and isset($password)){
