@@ -27,7 +27,6 @@ if($sqlnum == "63610069933") {
 	echo query_this("SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range");
 }
 
-}
 ?>
 <?php require "templates/header.php"; ?>
 
