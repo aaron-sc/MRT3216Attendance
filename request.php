@@ -10,7 +10,6 @@ require "config.php";
 require "common.php";
 $sqlnum = strval($_GET["q"]);
 function query_this(string $to_query) {
-	echo "Function Time!";
     try {
 		$sql = $to_query;
 		$statement = $connection->prepare($sql);
@@ -19,12 +18,11 @@ function query_this(string $to_query) {
 
 		return $result;
 	} catch(PDOException $error) {
-		echo "Fail Time!";
 		return "Error: ". $sql . "<br>" . $error->getMessage();
 	}
 }
 
-if($sqlnum == "63610069933") {
+if($sqlnum == "1234") {
 	$res = query_this("SELECT SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID WHERE IDENTITY.ID = 1013934");
 }
 
