@@ -48,6 +48,7 @@ if (isset($_POST['submit'])) {
 <form method="post">
   <label for="name">ID: </label>
   <input type="text" id="name" name="name">
+  <br>
   <label for="pass">PASSWORD: </label>
   <input type="password" id="pass" name="pass">
   <input type="submit" name="submit" value="Login">
