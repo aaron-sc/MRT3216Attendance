@@ -5,7 +5,7 @@
   * a parameter: in this case, name.
   *
   */
-echo($_GET["sql"])
+echo(str_replace("~", " ", strval($_GET["sql"])));
 // try {
 // 	require "config.php";
 // 	require "common.php";
