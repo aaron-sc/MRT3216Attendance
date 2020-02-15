@@ -5,26 +5,29 @@
   * a parameter: in this case, name.
   *
   */
-echo(str_replace("~", " ", strval($_GET["sql"])));
-// try {
-// 	require "config.php";
-// 	require "common.php";
 
-// 	$connection = new PDO($dsn, $username, $password, $options);
+require "config.php";
+require "common.php";
+$sqlnum = strval($_GET["q"]);
+function query_this($query) {
+    try {
+		$connection = new PDO($dsn, $username, $password, $options);
 
-// 	$sql = str_replace("~", " ", strval($_GET["sql"]));
+		$statement = $connection->prepare($query);
+		$statement->execute();
 
+		$result = $statement->fetchAll();
+		return $result;
+	} catch(PDOException $error) {
+		return $sql . "<br>" . $error->getMessage();
+	}
+}
 
+if($sqlnum == "63610069933") {
+	echo(query_this("SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range"));
+}
 
-// 	$statement = $connection->prepare($sql);
-// 	$statement->execute();
-
-// 	$result = $statement->fetchAll();
-// 	echo $result;
-// } catch(PDOException $error) {
-// 	echo $sql . "<br>" . $error->getMessage();
-// }
-// }
+}
 ?>
 <?php require "templates/header.php"; ?>
 
