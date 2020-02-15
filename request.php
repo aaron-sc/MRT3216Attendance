@@ -17,6 +17,7 @@ function query_this(string $to_query) {
 		$statement->execute();
 		$result = $statement->fetchAll();
 
+		echo $result;
 		return $result;
 	} catch(PDOException $error) {
 		echo "Fail Time!";
