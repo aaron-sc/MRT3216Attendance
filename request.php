@@ -14,7 +14,7 @@ function query_this(string $to_query) {
 		$sql = $to_query;
 		$statement = $connection->prepare($sql);
 		$statement->execute();
-		$result = $statement->fetchColumn(1);
+		$result = $statement->fetchColumn(0);
 
 		return $result;
 	} catch(PDOException $error) {
