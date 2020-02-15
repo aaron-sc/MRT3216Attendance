@@ -24,6 +24,7 @@ function query_this(string $to_query) {
 
 if($sqlnum == "1234") {
 	$res = query_this("SELECT SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID WHERE IDENTITY.ID = 1013934");
+	echo $res;
 }
 
 ?>
