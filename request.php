@@ -1,4 +1,7 @@
 <?php
+require "config.php";
+require "common.php";
+require "utility.php";
 /*
  * Written By: ShivalWolf
  * Date: 2011/06/03
