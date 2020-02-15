@@ -52,5 +52,7 @@ if (isset($_POST['submit'])) {
   <input type="password" id="pass" name="pass">
   <input type="submit" name="submit" value="Login">
 </form>
-<a href="get_total_time_non_admin.php">For Students</a>
+<p>For Students</p>
+<a href="get_total_time_non_admin.php">Get Total Time</a>
+<a href="check_out.php">Check Out</a>
 <?php require "templates/footer.php"; ?>
