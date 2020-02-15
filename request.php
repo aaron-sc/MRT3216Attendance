@@ -9,9 +9,10 @@
 require "config.php";
 require "common.php";
 $sqlnum = strval($_GET["q"]);
-echo $sqlnum;
 function query_this(string $to_query) {
+	echo "Function Time!";
     try {
+		echo "Try Time!";
 		$connection = new PDO($dsn, $username, $password, $options);
 		echo $to_query;
 		$statement = $connection->prepare($to_query);
@@ -20,6 +21,7 @@ function query_this(string $to_query) {
 		$result = $statement->fetchAll();
 		return $result;
 	} catch(PDOException $error) {
+		echo "Fail Time!";
 		return "Error: ". $sql . "<br>" . $error->getMessage();
 	}
 }
