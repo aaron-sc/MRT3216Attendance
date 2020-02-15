@@ -9,10 +9,11 @@
 require "config.php";
 require "common.php";
 $sqlnum = strval($_GET["q"]);
+echo $sqlnum;
 function query_this($to_query) {
     try {
 		$connection = new PDO($dsn, $username, $password, $options);
-
+		echo $to_query;
 		$statement = $connection->prepare($to_query);
 		$statement->execute();
 
