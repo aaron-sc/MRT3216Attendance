@@ -5,26 +5,26 @@
   * a parameter: in this case, name.
   *
   */
+echo($_GET["sql"])
+// try {
+// 	require "config.php";
+// 	require "common.php";
 
-try {
-	require "config.php";
-	require "common.php";
+// 	$connection = new PDO($dsn, $username, $password, $options);
 
-	$connection = new PDO($dsn, $username, $password, $options);
-
-	$sql = str_replace("~", " ", strval($_GET["sql"]));
+// 	$sql = str_replace("~", " ", strval($_GET["sql"]));
 
 
 
-	$statement = $connection->prepare($sql);
-	$statement->execute();
+// 	$statement = $connection->prepare($sql);
+// 	$statement->execute();
 
-	$result = $statement->fetchAll();
-	echo $result;
-} catch(PDOException $error) {
-	echo $sql . "<br>" . $error->getMessage();
-}
-}
+// 	$result = $statement->fetchAll();
+// 	echo $result;
+// } catch(PDOException $error) {
+// 	echo $sql . "<br>" . $error->getMessage();
+// }
+// }
 ?>
 <?php require "templates/header.php"; ?>
 
