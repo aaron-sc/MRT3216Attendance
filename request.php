@@ -25,10 +25,14 @@ function query_this(string $to_query) {
 }
 
 if($sqlnum == "63610069933") {
-	$res = query_this("SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID WHERE IDENTITY.ID = 1013934 GROUP BY ID");
-	foreach ($res as $row) {
-		echo escape($row["total_min"]);
-	}
+	$res = query_this("SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID WHERE IDENTITY.ID = 1013934");
+	<?php foreach ($result as $row) { ?>
+		<tr>
+	<td><?php echo escape($row["total_min"]);  ?></td>
+
+
+		</tr>
+		<?php } ?>
 }
 
 ?>
