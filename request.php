@@ -15,7 +15,7 @@ function query_this(string $to_query) {
 		$sql = $to_query;
 		$statement = $connection->prepare($sql);
 		$statement->execute();
-		$result = $statement->fetchAll();
+		$result = $statement->fetchColumn(0);
 
 		return $result;
 	} catch(PDOException $error) {
@@ -25,14 +25,7 @@ function query_this(string $to_query) {
 }
 
 if($sqlnum == "63610069933") {
-	$res = query_this("SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID WHERE IDENTITY.ID = 1013934");
-	foreach ($result as $row) {
-		?><tr>
-	<td><?php echo escape($row["total_min"]);  ?></td>
-
-
-		</tr>
-		<?php } ?>
+	$res = query_this("SELECT SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID WHERE IDENTITY.ID = 1013934");
 }
 
 ?>
