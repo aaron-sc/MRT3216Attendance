@@ -19,7 +19,7 @@ function query_this($query) {
 		$result = $statement->fetchAll();
 		return $result;
 	} catch(PDOException $error) {
-		return $sql . "<br>" . $error->getMessage();
+		return "Error: ". $sql . "<br>" . $error->getMessage();
 	}
 }
 
