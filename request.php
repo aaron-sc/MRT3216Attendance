@@ -10,7 +10,7 @@ require "config.php";
 require "common.php";
 $sqlnum = strval($_GET["q"]);
 echo $sqlnum;
-function query_this($to_query) {
+function query_this(string $to_query) {
     try {
 		$connection = new PDO($dsn, $username, $password, $options);
 		echo $to_query;
@@ -25,7 +25,7 @@ function query_this($to_query) {
 }
 
 if($sqlnum == "63610069933") {
-	echo query_this("SELECT IDENTITY.ID, FIRST_NAME, LAST_NAME, SUM(TIMESTAMPDIFF(MINUTE, TIME_IN, TIME_OUT)) AS 'total_min' FROM IDENTITY JOIN PRACTICE ON PRACTICE.ID = IDENTITY.ID GROUP BY ID HAVING total_min >= :hour_range");
+	echo query_this("SELECT * FROM IDENTITY");
 }
 
 ?>
