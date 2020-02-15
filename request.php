@@ -32,7 +32,7 @@
 
 //SETTINGS//
 //This code is something you set in the APP so random people cant use it.
-$SQLKEY="secret";
+$SQLKEY="RobotsRock";
 
 /************************************CONFIG****************************************/
 
