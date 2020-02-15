@@ -12,13 +12,11 @@ $sqlnum = strval($_GET["q"]);
 function query_this(string $to_query) {
 	echo "Function Time!";
     try {
-		echo "Try Time!";
-		$connection = new PDO($dsn, $username, $password, $options);
-		echo $to_query;
-		$statement = $connection->prepare($to_query);
+		$sql = $to_query;
+		$statement = $connection->prepare($sql);
 		$statement->execute();
-
 		$result = $statement->fetchAll();
+
 		return $result;
 	} catch(PDOException $error) {
 		echo "Fail Time!";
