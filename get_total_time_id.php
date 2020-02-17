@@ -68,6 +68,7 @@ if (isset($_POST['submit'])) {
   <label for="id">ID: </label>
   <input type="text" name="id" id="id">
   <input type="submit" name="submit" value="View Results">
+  <div id="barcode-scanner" class="size"> </div>
 </form>
 
 <a href="options.php">Back to home</a>
