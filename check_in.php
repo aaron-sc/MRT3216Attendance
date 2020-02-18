@@ -40,9 +40,34 @@ if (isset($_POST['submit']) && $statement) {
  echo escape($_POST["ID"]).' successfully checked in';
 } 
 
-if ($_GET['q'] != ""){
-	echo $_GET['q'];
-}
+if ($_GET['id'] != ""){
+	try {
+		$connection = new PDO($dsn, $username, $password, $options);
+
+		$data = array(
+		"ID" => $_GET['id'],
+		"TIME_IN"     => date('Y-m-d H:i:s'),
+		);
+
+		$sql = sprintf(
+		"INSERT INTO %s (%s) values (%s)",
+		"PRACTICE",
+		implode(", ", array_keys($data)),
+		":" . implode(", :", array_keys($data))
+		);
+
+		$statement2 = $connection->prepare($sql);
+		$statement2->execute($data);
+	} catch(PDOException $error) {
+		echo $sql . "<br>" . $error->getMessage();
+	}
+
+	}
+
+	if ($statement2) {
+		echo escape($_GET['id']).' successfully checked in';
+	} 
+	}
 
 ?>
 

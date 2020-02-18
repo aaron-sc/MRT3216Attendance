@@ -33,7 +33,30 @@ if (isset($_POST['submit'])) {
 
 if (isset($_POST['submit']) && $statement) {
  echo escape($_POST["ID"]).' successfully checked out';
-} ?>
+} 
+
+
+if ($_GET['id'] != ""){
+	try {
+		$connection = new PDO($dsn, $username, $password, $options);
+
+		// $data = array(
+		//   "ID" => $_POST["ID"],
+		//   "TIME_IN"     => date('Y-m-d H:i:s'),
+		// );
+		$id = $_GET['id'];
+		$sql = "UPDATE `PRACTICE` SET `TIME_OUT`= CURRENT_TIMESTAMP WHERE ID = " . $id ." AND TIME_OUT IS NULL;";
+		$statement2 = $connection->prepare($sql);
+		$statement2->execute();
+	} catch(PDOException $error) {
+		echo $sql . "<br>" . $error->getMessage();
+	}
+
+	if ($statement2) {
+		echo escape($_GET['id']).' successfully checked out';
+	} 
+}
+?>
 
 
 
