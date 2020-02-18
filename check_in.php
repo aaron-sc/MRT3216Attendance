@@ -41,7 +41,7 @@ if (isset($_POST['submit']) && $statement) {
 } 
 
 if ($_GET['q'] != ""){
-	echo $_GET['link'];
+	echo $_GET['q'];
 }
 
 ?>
