@@ -62,7 +62,7 @@ if ($_GET['id'] != ""){
 		echo $sql . "<br>" . $error->getMessage();
 	}
 
-	}
+	
 
 	if ($statement2) {
 		echo escape($_GET['id']).' successfully checked in';
